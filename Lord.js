@@ -1593,7 +1593,7 @@ _Tunggu Proses Upload Media_`
 											})
 										}).catch((err) => reply(`Link tidak valid`))
 									break
-						case 'playvideo': case 'playmp4': case 'ytmp4': case 'ytvideo':{
+						case 'video': case 'mp4': case 'ytmp4': case 'ytvideo':{
 									if (!q) return reply(`Example : ${prefix+command} query`)
 									reply(mess.wait)
 									try {
@@ -1614,7 +1614,7 @@ _Tunggu Proses Upload Media_`
 												}
 											}
 									break
-						case 'play': case 'ytmp3':
+						case 'song': case 'ytmp3':
 									if (args.length === 0) return reply(`Kirim perintah *${prefix}play* _Judul lagu yang akan dicari_`)
 									var srch = args.join(' ')
 									aramas = await yts(srch);
@@ -1636,7 +1636,7 @@ _Tunggu Proses Upload Media_`
 											reply('Terjadi kesalahan')
 											}
 									break
-						case 'yts': case 'youtubesearch': case 'ytsearch':{
+						case 'yts': case 'yt': case 'ytsearch':{
 									if (args.length < 1) return reply(`Kirim perintah *${prefix + command}* _query_`)
 									reply(mess.wait)
 									yts(q)
@@ -1785,7 +1785,7 @@ Alasan : ${reason}`, [sender], true)
 									Zeeone.query({ json: ['action', 'inviteReset', from], expect200: true })
 									reply(`Sukses Reset Link Group!`)
 									break
-						case 'linkgc': case 'gclink': case 'linkgrup': case 'linkgroup': case 'grouplink':
+						case 'link': case 'invite': case 'linkgrup': case 'linkgroup': case 'grouplink':
 									if (!isGroup) return reply(mess.only.group)
 									if (!isGroupAdmins && !isOwner && !Ofc.key.fromMe) return reply(mess.only.admin)   
 									if (!isBotGroupAdmins) return reply(`Jadikan Bot Sebagai Admin Group!`)
@@ -1886,7 +1886,7 @@ Alasan : ${reason}`, [sender], true)
 											reply(`Berhasil Mengubah Prefix Ke *${q}*`)
 										}
 									break
-						case 'setnamabot':{
+						case 'setname':{
 									if (!isOwner && !Ofc.key.fromMe) return reply(mess.only.owner)
 									if (args.length < 1) return reply(`Kirim perintah ${command} nama\n\nContoh : ${command} Alphabot`)
 									Zeeone.updateProfileName(q)
@@ -1894,7 +1894,7 @@ Alasan : ${reason}`, [sender], true)
 									.catch((err) => reply('Eror Lord'))
 									 }
 									break
-						case 'setbiobot':{
+						case 'setbio':{
 									 if (!isOwner && !Ofc.key.fromMe) return reply(mess.only.owner)
 									if (args.length < 1) return reply(`Kirim perintah ${command} nama\n\nContoh : ${command} Alphabot`)
 									Zeeone.setStatus(q)
@@ -1956,7 +1956,7 @@ Alasan : ${reason}`, [sender], true)
 														Zeeone.groupDemoteAdmin(from, [entah])
 													}
 									break
-						case 'setnamagrup': case 'setnamegrup': case 'setgrupname':
+						case 'rename': case 'setnamegrup': case 'setgrupname':
 									if (!isGroup) return reply(mess.only.group)
 									if (!isGroupAdmins && !isOwner) return reply(mess.only.admin)
 									if (!isBotGroupAdmins) return reply(`Jadikan Bot Sebagai Admin Group!`)
@@ -1974,7 +1974,7 @@ Alasan : ${reason}`, [sender], true)
 										.then((res) => reply(jsonformat(res)))
 										.catch((err) => reply(jsonformat(err)))
 									break
-						case 'setppbot':
+						case 'pp':
 									if (!isOwner && !Ofc.key.fromMe) return
 									if (!isQuotedImage) return reply(`Kirim gambar dengan caption ${prefix}setbotpp atau tag gambar yang sudah dikirim`)
 									enmedia = JSON.parse(JSON.stringify(Ofc).replace('quotedM','m')).message.extendedTextMessage.contextInfo
@@ -1982,7 +1982,7 @@ Alasan : ${reason}`, [sender], true)
 									await Zeeone.updateProfilePicture(botNumber, media)
 									reply('Makasih pp barunya lord 🌝')
 									break
-						case 'setppgrup':
+						case 'gp':
 									if (!isGroup) return reply(mess.only.group)
 									if (!isGroupAdmins && !isOwner) return reply(mess.only.admin)
 									if (!isBotGroupAdmins) return reply(`Jadikan Bot Sebagai Admin Group!`)
@@ -2262,7 +2262,7 @@ Alasan : ${reason}`, [sender], true)
 											reply('Pesan tidak ditemukan!')
 											} 
 									break
-						case 'tomp3': case 'tomusic': case 'toaudio':
+						case 'mp3': case 'tomusic': case 'toaudio':
 									if (isLimit(sender, isPremium, isOwner, limitawal, limit)) return reply(mess.limit)
 									if (!isQuotedVideo) return reply(`Reply video nya lord`)
 									reply(mess.wait)
@@ -2294,7 +2294,7 @@ Alasan : ${reason}`, [sender], true)
 										})
 										limitAdd(sender, limit)
 									break
-						case 'toimg': 
+						case 'photo': 
 									if (isLimit(sender, isPremium, isOwner, limitawal, limit)) return reply(mess.limit)
 									reply(mess.wait)
 									if (!isQuotedSticker) return reply('Reply stiker Lord')
@@ -2314,7 +2314,7 @@ Alasan : ${reason}`, [sender], true)
 										}
 										limitAdd(sender, limit)
 									break
-						case 'togif':
+						case 'gif':
 									if (isLimit(sender, isPremium, isOwner, limitawal, limit)) return reply(mess.limit)
 									if (!isQuotedSticker) return reply('Reply stiker Lord')
 									reply(mess.wait)
@@ -2327,7 +2327,7 @@ Alasan : ${reason}`, [sender], true)
 									Zeeone.sendMessage(from, Frd, video, { mimetype: 'video/gif', caption: 'Sukses Lord', quoted: Ofc })
 									limitAdd(sender, limit)
 									break
-						case 'tovideo': case 'tomp4':
+						case 'tovideo': case 'mp4':
 									if (isLimit(sender, isPremium, isOwner, limitawal, limit)) return reply(mess.limit)
 									if (!isQuotedSticker) return reply('Reply stiker gif lord')
 									reply(mess.wait)
@@ -2343,7 +2343,7 @@ Alasan : ${reason}`, [sender], true)
 									fs.unlinkSync(owgi)
 									limitAdd(sender, limit)
 									break
-						case 'tourl': case 'imagetorul': case 'imgtourl': case 'audiotourl': case 'videotourl': case 'stickertourl': case 'stikertourl': case 'tolink':
+						case 'url': case 'imagetorul': case 'imgtourl': case 'audiotourl': case 'videotourl': case 'stickertourl': case 'stikertourl': case 'tolink':
 									var imgbb = require('imgbb-uploader')
 									if (isQuotedAudio) {
 										ger = JSON.parse(JSON.stringify(Ofc).replace('quotedM','m')).message.extendedTextMessage.contextInfo
@@ -3057,7 +3057,7 @@ ${teks}`, members_id, true)
 													}
 												limitAdd(sender, limit)
 											break
-						case 'translate': case 'tr':
+						case 'translate': case 'trt':
 									try {
 										if (args.length < 1)return reply(`Usage : #translate kode bahasa teks/reply pesan\nExample : #translate id why`)
 										if (Ofc.message.extendedTextMessage === undefined || Ofc.message.extendedTextMessage === null) {
